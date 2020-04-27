@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+	
+	<IfModule mod_mime.c>
+		AddType application/vnd.ms-fontobject    .eot
+		AddType application/x-font-opentype      .otf
+		AddType image/svg+xml                    .svg
+		AddType application/x-font-ttf           .ttf
+		AddType application/font-woff            .woff
+		AddType application/font-woff2           .woff2
+	</IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+	
+	# MIME Mappings
+	AddType font/woff .woff
+	AddType font/woff2 .woff2
+	
+	
+</IfModule>
